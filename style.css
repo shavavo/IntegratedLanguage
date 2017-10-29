@@ -1,0 +1,38 @@
+#f0:after{content: '异常';}
+#f0:hover:after{content: 'unusual';}
+
+#f1:after{content: '当然';}
+#f1:hover:after{content: 'Sure';}
+
+#f2:after{content: '愿意';}
+#f2:hover:after{content: 'willing';}
+
+#f3:after{content: '快乐';}
+#f3:hover:after{content: 'cheerful';}
+
+#f4:after{content: '社会';}
+#f4:hover:after{content: 'social';}
+
+#f5:after{content: '侧踢';}
+#f5:hover:after{content: 'side-kick';}
+
+#f6:after{content: '魔术精明';}
+#f6:hover:after{content: 'magic-savvy';}
+
+#f7:after{content: '私人的';}
+#f7:hover:after{content: 'private';}
+
+#f8:after{content: '永恒';}
+#f8:hover:after{content: 'ageless';}
+
+#f9:after{content: '最佳';}
+#f9:hover:after{content: 'top';}
+
+#f10:after{content: '慈善';}
+#f10:hover:after{content: 'charitable';}
+
+#f11:after{content: '最';}
+#f11:hover:after{content: 'most';}
+
+#f12:after{content: '少数';}
+#f12:hover:after{content: 'few';}
