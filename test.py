@@ -6,8 +6,7 @@ import random
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
 
-
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/davidcheng/Desktop/Parse/auth.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "auth.json"
 
 def translate_text(target, text):
     translate_client = translate.Client()
@@ -65,5 +64,4 @@ for i in range( len(toTranslate)-1 ):
     css += "#f" + str(i) + ":after{content: '" + translated[i] + "';}\n#f" + str(i) + ":hover:after{content: '" + toTranslate[i] + "';}\n\n"
 
 #print paragraph
-#print css
-print len(toTranslate)
+print css
