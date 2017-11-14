@@ -14,7 +14,7 @@ You can install Integrated Language on the Chrome Extension Store here: https://
 
 To use Integrated Language, install the Chrome Extension from the link above.
 
-To modify the existing code, make your changes and zip all of the contents of the extension. Note that you will have to provide your own Google Translate API key in "inject.js".
+To modify the existing code, make your changes and compress all of the contents of the extension into a zip file. Drag the zip file into chrome://extensions in Google Chrome. Note that you will have to provide your own Google Translate API key in "inject.js".
 
 ## Supported Languages
 
