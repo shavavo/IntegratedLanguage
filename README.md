@@ -6,6 +6,8 @@ Integrated Language is easy to use. Simply select the language you want to learn
 
 View the extension in action here: https://www.youtube.com/watch?v=A4fJ7nEU6Ms
 
+![alt text](https://github.com/shavavo/Integrated-Language/blob/master/images/IL1280_800.png)
+
 ## Installation
 
 You can install Integrated Language on the Chrome Extension Store here: https://chrome.google.com/webstore/detail/integrated-language/gecndgpfcacjllppgiffgfdhpdgibjan
@@ -13,6 +15,8 @@ You can install Integrated Language on the Chrome Extension Store here: https://
 ## Usage
 
 To use Integrated Language, install the Chrome Extension from the link above.
+
+
 
 To modify the existing code, make your changes and compress all of the contents of the extension into a zip file. Drag the zip file into chrome://extensions in Google Chrome. Note that you will have to provide your own Google Translate API key in "inject.js".
 
