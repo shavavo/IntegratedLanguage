@@ -5,7 +5,6 @@ var language = "hy";
 var difficulty = 5;
 var apiKey = "";
 
-
 chrome.extension.onConnect.addListener(function(port) {
       port.onMessage.addListener(function(msg) {
           // Send language and difficulty

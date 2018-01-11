@@ -29,9 +29,9 @@ function selectLanguage(){
 }
 
 function selectDiff(){
-  difficulty = DIFF.options[DIFF.selectedIndex].value;
+  difficulty = DIFF.value;
+  console.log(difficulty);
 }
-
 
 function translate(){
   // Get tab ID and call inject.js on tab
