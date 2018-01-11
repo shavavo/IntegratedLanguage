@@ -32,8 +32,8 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
         node.innerHTML = str;
         document.body.appendChild(node);
     }
-    addStyleString("code{font-family:monospace,monospace;font-size:1em}");
-    addStyleString("code{padding:.2rem .4rem;font-size:90%;color:#bd4147;background-color:#f8f9fa;border-radius:.25rem}a>");
+    addStyleString("span{font-size:1em}");
+    addStyleString("span{padding:.2rem .4rem;border-radius:.25rem}a>");
 
 
     for(var i=0; i<p.length; i++){
@@ -58,13 +58,13 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
         (function(i, j){
           $.ajax({
             url:"https://translation.googleapis.com/language/translate/v2",
-            data: {q: uniqueNouns[j], target:language, key:"[INSERT KEY HERE]"},
+            data: {q: uniqueNouns[j], target:language, key:"AIzaSyDNgBm4Dx_VPVLPZix8JQHDkLO1RI3OC-U"},
             success: function(returnedData){
               //console.log(returnedData.data.translations[0].translatedText);
               var translatedNoun = returnedData.data.translations[0].translatedText;
 
               // Create HTML to inject
-              var string = "<code class='flipflop' id='ff"+ i +"_"+ j +"' onmouseover=\"this.innerHTML='"+ pNouns[i][j] +"';\" onmouseout=\"this.innerHTML='"+ returnedData.data.translations[0].translatedText +"';\"style='background-color: #f7f7f7; color: #c20000; text-align:center; display: inline-block; margin:auto;'>"+ returnedData.data.translations[0].translatedText+"</code>";
+              var string = "<span class='flipflop' id='ff"+ i +"_"+ j +"' onmouseover=\"this.innerHTML='"+ pNouns[i][j] +"';\" onmouseout=\"this.innerHTML='"+ returnedData.data.translations[0].translatedText +"';\"style='color: #010101; text-align:center; display: inline-block; margin:auto;'>"+ returnedData.data.translations[0].translatedText+"</span>";
 
               // Inject HTML
               p[i].innerHTML = p[i].innerHTML.replace(" "+pNouns[i][j]+" ", string);
