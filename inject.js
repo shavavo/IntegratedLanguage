@@ -58,10 +58,13 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
         (function(i, j){
           $.ajax({
             url:"https://translation.googleapis.com/language/translate/v2",
-            data: {q: uniqueNouns[j], target:language, key:"[Insert-key-here]"},
+            data: {q: uniqueNouns[j], target:language, key:"AIzaSyDNgBm4Dx_VPVLPZix8JQHDkLO1RI3OC-U"},
             success: function(returnedData){
               //console.log(returnedData.data.translations[0].translatedText);
+
+
               var translatedNoun = returnedData.data.translations[0].translatedText;
+
 
               // Create HTML to inject
               var string = "<span class='flipflop' id='ff"+ i +"_"+ j +"' onmouseover=\"this.innerHTML='"+ pNouns[i][j] +"';\" onmouseout=\"this.innerHTML='"+ returnedData.data.translations[0].translatedText +"';\"style='color: #010101; text-align:center; display: inline-block; margin:auto;'>"+ returnedData.data.translations[0].translatedText+"</span>";

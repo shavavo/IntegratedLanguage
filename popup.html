@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="popup.js" async></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="popup.css" />
 </head>
 
 <body>
@@ -79,27 +80,14 @@
   -->
 
   <div class="container">
-      <div class="form-row align-items-center">
-        <div class="col-8">
-          <label class="mr-sm-2" for="inlineFormCustomSelect">Difficulty</label>
-          <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="difficulty">
-            <option selected>Choose..</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </select>
-        </div>
+      <p> Difficulty: </p>
+      <div class="slidecontainer">
+        <input type="range" min="1" max="10" value="5" class="slider" id="difficulty">
+      </div>
 
-        <div class="col">
-            <button id="start" type="button" class="btn btn-primary btn">Start</button>
-        </div>
+
+      <div>
+          <button id="start" type="button" class="btn btn-primary btn">Start</button>
       </div>
   </div>
 </body>
