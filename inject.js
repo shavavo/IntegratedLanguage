@@ -1,3 +1,4 @@
+
 // Receive data from popup.js
 chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 
@@ -11,6 +12,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
     document.body.innerHTML = data.substring(x, y+7);
     var language = message.language;
     var difficulty = message.difficulty;
+    var translateAPIKey = message.apiKey
 
     // Invisible div to measure pixel width of text
     var measure = document.getElementById("measure");
@@ -58,7 +60,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
         (function(i, j){
           $.ajax({
             url:"https://translation.googleapis.com/language/translate/v2",
-            data: {q: uniqueNouns[j], target:language, key:"AIzaSyDNgBm4Dx_VPVLPZix8JQHDkLO1RI3OC-U"},
+            data: {q: uniqueNouns[j], target:language, key:translateAPIKey},
             success: function(returnedData){
               //console.log(returnedData.data.translations[0].translatedText);
 
