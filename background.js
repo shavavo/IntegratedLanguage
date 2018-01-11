@@ -3,7 +3,7 @@
 // Initialize language and difficulty
 var language = "hy";
 var difficulty = 5;
-var apiKey = "";
+var apiKey = config.TRANSLATE_API_KEY;
 
 chrome.extension.onConnect.addListener(function(port) {
       port.onMessage.addListener(function(msg) {
@@ -19,3 +19,9 @@ chrome.extension.onConnect.addListener(function(port) {
           }
       });
 })
+
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    if (request.greeting == "inject")
+      sendResponse({language: language, difficulty: difficulty, apiKey: apiKey});
+  });

@@ -1,7 +1,10 @@
-// Receive data from popup.js
-chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
-  // Get HTML of entire site, used to restore in between changes
+// Request data from popup.js
+chrome.runtime.sendMessage({greeting: "inject"}, function(response) {
+  console.log(response.language);
+  console.log(response.difficulty);
+  console.log(response.apiKey);
 
+  // Get HTML of entire site, used to restore in between changes
   $.ajax({ url: "", success: function(data) {
 
     //Extract <body> from HTML
@@ -9,9 +12,9 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
     var y = data.search("</body>");
 
     document.body.innerHTML = data.substring(x, y+7);
-    var language = message.language;
-    var difficulty = message.difficulty;
-    var translateAPIKey = message.apiKey
+    var language = response.language;
+    var difficulty = response.difficulty;
+    var translateAPIKey = response.apiKey;
 
     // Invisible div to measure pixel width of text
     var measure = document.getElementById("measure");
@@ -96,4 +99,6 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
       }
     }
    } });
-  });
+
+
+});

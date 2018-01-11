@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US" style="height: 300px; width: 325px;">
+<html lang="en-US" style="height: 300px; width: 275px;">
 
 <head >
     <meta charset="UTF-8">
@@ -13,13 +13,13 @@
 <body>
   <div class="jumbotron jumbotron-fluid" style="background-color:#3F51B5; padding: 5px; margin-bottom: 15px">
     <div class="container" style="color:white; margin-top:20px;">
-      <h2>IntegratedLanguage</h2>
+      <h3>IntegratedLanguage</h3>
     </div>
   </div>
 
   <div class="container">
     <div class="form-group">
-      <label for="exampleFormControlSelect1">Choose a Language to translate to:</label>
+      <label for="exampleFormControlSelect1">Language:</label>
       <select class="form-control" id="languageSelect">
         <option value="hy">Armenian</option>
         <option value="zh">Chinese</option>
@@ -87,8 +87,13 @@
       </div>
 
 
-      <div>
-          <button id="start" type="button" class="btn btn-primary btn">Start</button>
+      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary active">
+          <input type="radio" name="options" id="option1" autocomplete="off" checked> Auto
+        </label>
+        <label class="btn btn-secondary">
+          <input type="radio" name="options" id="option2" autocomplete="off"> Manual
+        </label>
       </div>
   </div>
 </body>
