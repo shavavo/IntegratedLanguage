@@ -1,8 +1,6 @@
 // Receive data from popup.js
 chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
   // Get HTML of entire site, used to restore in between changes
-  console.log(message);
-  console.log(sender);
 
   $.ajax({ url: "", success: function(data) {
 

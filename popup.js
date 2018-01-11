@@ -41,12 +41,12 @@ function translate(){
   }, function(tabs) {
       //console.log(tabs[0].id);
       var tab = tabs[0];
-      chrome.tabs.executeScript(tab.id,{file:"inject.js"},function(){
+      //chrome.tabs.executeScript(tab.id,{file:"inject.js"},function(){
         // Save language and difficulty
         port.postMessage([1,language, difficulty, config.TRANSLATE_API_KEY]);
         chrome.tabs.sendMessage(tab.id, {language:language, difficulty: difficulty, apiKey: config.TRANSLATE_API_KEY});
         window.close();
-      });
+      //});
     });
 }
 

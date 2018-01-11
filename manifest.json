@@ -14,7 +14,7 @@
   "icons": {
     "128": "ILLogo.png"
   },
-  
+
   "background": {
     "scripts": ["lib/jquery.js","lib/bootstrap.js","lib/compromise.js", "lib/jquery.js","background.js"]
   },
