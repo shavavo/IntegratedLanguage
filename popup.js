@@ -17,11 +17,9 @@ var e = document.getElementById("languageSelect");
 var DIFF =  document.getElementById("difficulty");
 
 if(DIFF){
-  DIFF.addEventListener('click', selectDiff, false);
   DIFF.addEventListener('change', selectDiff, false);
 }
 if(e){
-  e.addEventListener('click', selectLanguage, false);
   e.addEventListener('change', selectLanguage, false);
 }
 if(TOGGLE){
@@ -81,12 +79,13 @@ function toggled() {
 function selectLanguage(){
   language = e.options[e.selectedIndex].value;
   port.postMessage([1,language, difficulty, auto]);
-
+  chrome.tabs.executeScript(currTab.id, {file: "inject.js"})
 }
 
 function selectDiff(){
   difficulty = DIFF.value;
   port.postMessage([1,language, difficulty, auto]);
+  chrome.tabs.executeScript(currTab.id, {file: "inject.js"})
 }
 
 
