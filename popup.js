@@ -3,8 +3,6 @@ var port = chrome.extension.connect({
      name: "Connect"
 });
 
-
-
 var language;
 var difficulty;
 var auto;
@@ -19,7 +17,7 @@ port.onMessage.addListener(function(msg) {
      DIFF.value=difficulty;
      if (auto == false) {
        TOGGLE.active = false
-       TOGGLE.innerHTML = "Manual"
+       TOGGLE.innerHTML = "Off"
        TOGGLE.style.backgroundColor = "#455560"
      } else {
        TOGGLE.active = true
@@ -39,17 +37,30 @@ function toggled() {
   if (auto == true) {
     auto = false
     TOGGLE.active = false
-    TOGGLE.innerHTML = "Manual"
+    TOGGLE.innerHTML = "Off"
     TOGGLE.style.backgroundColor = "#455560"
     port.postMessage([1,language, difficulty, auto]);
-    console.log(auto);
+
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
+    });
+
+
+
+
+
   } else {
     auto = true
     TOGGLE.active = true
-    TOGGLE.innerHTML = "Auto"
+    TOGGLE.innerHTML = "On"
     TOGGLE.style.backgroundColor = "#0A54D3"
     port.postMessage([1,language, difficulty, auto]);
-    console.log(auto);
+
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      var currTab = tabs[0];
+      chrome.tabs.executeScript(currTab.id, {file: "inject.js"})
+    });
+
   }
 }
 

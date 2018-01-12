@@ -3,7 +3,7 @@
 // Initialize language and difficulty
 var language = "hy";
 var difficulty = 5;
-var auto = true;
+var auto = false;
 var apiKey = config.TRANSLATE_API_KEY;
 
 chrome.extension.onConnect.addListener(function(port) {
