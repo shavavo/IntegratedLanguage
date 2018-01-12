@@ -39,6 +39,7 @@ chrome.runtime.sendMessage({greeting: "inject"}, function(response) {
           node.innerHTML = str;
           document.body.appendChild(node);
       }
+      
       addStyleString("span{font-size:1em}");
       addStyleString("span{padding:.2rem .4rem;border-radius:.25rem}");
 

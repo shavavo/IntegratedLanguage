@@ -6,7 +6,7 @@
   "version": "0.0.1",
 
   "content_scripts": [ {
-    "matches": ["http://*/*", "https://*/*"],
+    "matches": ["*://*/*","http://*/*", "https://*/*"],
     "js": ["lib/jquery.js", "lib/compromise.js","inject.js"],
     "run_at": "document_end"
   } ],
@@ -23,6 +23,7 @@
     "default_popup": "popup.html"
   },
   "permissions": [
+    "tabs",
     "activeTab",
     "storage",
     "identity",

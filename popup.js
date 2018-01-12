@@ -6,6 +6,11 @@ var port = chrome.extension.connect({
 var language;
 var difficulty;
 var auto;
+var currTab;
+
+chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+  currTab = tabs[0];
+});
 
 var TOGGLE = document.getElementById("toggle")
 var e = document.getElementById("languageSelect");
@@ -64,10 +69,9 @@ function toggled() {
       TOGGLE.style.backgroundColor = "#0A54D3"
       port.postMessage([1,language, difficulty, auto]);
 
-      chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        var currTab = tabs[0];
-        chrome.tabs.executeScript(currTab.id, {file: "inject.js"})
-      });
+      console.log(currTab.id);
+      chrome.tabs.executeScript(currTab.id, {file: "inject.js"})
+
 
     }
 }
