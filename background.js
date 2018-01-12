@@ -25,7 +25,6 @@ chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.greeting == "inject"){
       sendResponse({auto: auto, language: language, difficulty: difficulty, apiKey: apiKey});
-      console.log(auto);
     }
 
   });

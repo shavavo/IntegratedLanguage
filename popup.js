@@ -72,12 +72,8 @@ function selectLanguage(){
 function selectDiff(){
   difficulty = DIFF.value;
   port.postMessage([1,language, difficulty, auto]);
-  console.log(difficulty);
 }
 
-//ADJS.addEventListener('click', checkAdjs, false)
-//VERBS.addEventListener('click', checkVerbs, false)
-//NOUNS.addEventListener('click', checkNouns, false)
 DIFF.addEventListener('click', selectDiff, false)
 DIFF.addEventListener('change', selectDiff, false)
 e.addEventListener('click', selectLanguage, false)
