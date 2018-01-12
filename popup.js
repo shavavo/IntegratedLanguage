@@ -74,6 +74,8 @@ function toggled() {
 
 
     }
+    window.close()
+
 }
 
 function selectLanguage(){
