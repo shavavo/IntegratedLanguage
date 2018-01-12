@@ -7,14 +7,31 @@ var language;
 var difficulty;
 var auto;
 
+var TOGGLE = document.getElementById("toggle")
+var e = document.getElementById("languageSelect");
+var DIFF =  document.getElementById("difficulty");
+
+if(DIFF){
+  DIFF.addEventListener('click', selectDiff, false);
+  DIFF.addEventListener('change', selectDiff, false);
+}
+if(e){
+  e.addEventListener('click', selectLanguage, false);
+  e.addEventListener('change', selectLanguage, false);
+}
+if(TOGGLE){
+  TOGGLE.addEventListener('click', toggled, false)
+}
+
 // Request difficulty, language from background.js, set corresponding fields
 port.postMessage([0]);
 port.onMessage.addListener(function(msg) {
+      console.log(msg);
      language = msg[0];
      difficulty = msg[1];
      auto = msg[2];
-     e.value = language;
-     DIFF.value = difficulty;
+     e.value = msg[0];
+     DIFF.value = msg[1];
      if(auto == false) {
          TOGGLE.active = false;
          TOGGLE.innerHTML = "Off";
@@ -27,12 +44,7 @@ port.onMessage.addListener(function(msg) {
 });
 
 
-const TOGGLE = document.getElementById("toggle")
-const e = document.getElementById("languageSelect");
-const NOUNS = document.getElementById("nouns");
-const VERBS = document.getElementById("verbs");
-const ADJS = document.getElementById("adjectives");
-const DIFF =  document.getElementById("difficulty");
+
 
 function toggled() {
     if (auto == true) {
@@ -72,14 +84,7 @@ function selectDiff(){
 }
 
 
-//ADJS.addEventListener('click', checkAdjs, false)
-//VERBS.addEventListener('click', checkVerbs, false)
-//NOUNS.addEventListener('click', checkNouns, false)
-DIFF.addEventListener('click', selectDiff, false);
-DIFF.addEventListener('change', selectDiff, false);
-e.addEventListener('click', selectLanguage, false);
-e.addEventListener('change', selectLanguage, false);
-TOGGLE.addEventListener('click', toggled, false)
+
 
 
 // also add a feature so the last one you select is saved in storage
