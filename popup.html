@@ -1,25 +1,29 @@
 <!DOCTYPE html>
-<html lang="en-US" style="height: 300px; width: 275px;">
+<html lang="en-US" style="height: 300px; width: 325px;">
 
 <head >
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="lib/jquery.js"></script>
+    <script src="popup.js" async></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="popup.css" />
     <script type='text/javascript' src='config.js'></script>
-    <script src="popup.js" async></script>
+    <script src="background.js"></script>
+    <script src="inject.js"></script>
 </head>
 
 <body>
+
   <div class="jumbotron jumbotron-fluid" style="background-color:#3F51B5; padding: 5px; margin-bottom: 15px">
     <div class="container" style="color:white; margin-top:20px;">
-      <h3>IntegratedLanguage</h3>
+      <h2>IntegratedLanguage</h2>
     </div>
   </div>
 
   <div class="container">
     <div class="form-group">
-      <label for="exampleFormControlSelect1">Language:</label>
+      <label for="exampleFormControlSelect1">Choose a Language to translate to:</label>
       <select class="form-control" id="languageSelect">
         <option value="hy">Armenian</option>
         <option value="zh">Chinese</option>
@@ -48,13 +52,40 @@
       </select>
     </div>
 
-      <p> Difficulty: </p>
-      <div class="slidecontainer">
-        <input type="range" min="1" max="10" value="5" class="slider" id="difficulty">
-      </div>
 
-      <button width = "200px" id="toggle" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
-        Off
-      </button>
+    <p> Difficulty: </p>
+        <div class="slidecontainer">
+          <input type="range" min="1" max="10" value="5" class="slider" id="difficulty">
+        </div>
+
+        <button width = "200px" id="toggle" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+          Off
+        </button>
+
+
+
+      <!-- <div id="wordContainer">
+            <span id="translateWord">Doggy</span>
+        </div> -->
+        <div id="flashCardContainer">
+            <button id="quizlet">Quizlet</button>
+
+            <select name="" id="setSelect">
+                <!-- sets are loaded into here -->
+            </select>
+
+            <div class="flip-container" id="card" ontouchstart="this.classList.toggle('hover');">
+                <div class="flipper">
+                    <div class="front">
+                        <span class="flashWord" id="term">Hello</span>
+                    </div>
+                    <div class="back">
+                        <span class="flashWord" id="termTranslation">Bonjour</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
   </div>
 </body>

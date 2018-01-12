@@ -1,7 +1,7 @@
 // Request data from popup.js
 chrome.runtime.sendMessage({greeting: "inject"}, function(response) {
-  // Get HTML of entire site, used to restore in between changes
   if (response.auto == true) {
+    // Get HTML of entire site, used to restore in between changes
     $.ajax({ url: "", success: function(data) {
 
       //Extract <body> from HTML
@@ -39,11 +39,11 @@ chrome.runtime.sendMessage({greeting: "inject"}, function(response) {
           node.innerHTML = str;
           document.body.appendChild(node);
       }
-
       addStyleString("span{font-size:1em}");
       addStyleString("span{padding:.2rem .4rem;border-radius:.25rem}");
 
-      addScript("function extract(x,y){ console.log(x); console.log(y); }")
+      addScript("function extract(x,y, z){ data = {original: y, translated: z}; window.postMessage(data, '*'); } ")
+
 
       for(var i=0; i<p.length; i++){
         nouns = [];
@@ -70,10 +70,13 @@ chrome.runtime.sendMessage({greeting: "inject"}, function(response) {
               data: {q: uniqueNouns[j], target:language, key:translateAPIKey},
               success: function(returnedData){
                 //console.log(returnedData.data.translations[0].translatedText);
+
+
                 var translatedNoun = returnedData.data.translations[0].translatedText;
 
+
                 // Create HTML to inject
-                var string = "<span onclick=\"extract( \' " + pNouns[i][j] +" \',\'" +returnedData.data.translations[0].translatedText + "\' )\" class='flipflop' id='ff"+ i +"_"+ j +"' onmouseover=\"this.innerHTML='"+ pNouns[i][j] +"';\" onmouseout=\"this.innerHTML='"+ returnedData.data.translations[0].translatedText +"';\"style='color: #010101; text-align:center; display: inline-block; margin:auto;'>"+ returnedData.data.translations[0].translatedText+"</span>";
+                var string = "<span onclick=\"extract(\'" + "ff" + i + "_" + j + "\' , \'" + pNouns[i][j] + "\', \'" + returnedData.data.translations[0].translatedText + "\' ) \"  class='translateWord' id='ff"+ i +"_"+ j +"' onmouseover=\"this.innerHTML='"+ pNouns[i][j] +"';\" onmouseout=\"this.innerHTML='"+ returnedData.data.translations[0].translatedText +"';\"style='color: #010101; text-align:center; display: inline-block; margin:auto;'>"+ returnedData.data.translations[0].translatedText+"</span>";
 
                 // Inject HTML
                 p[i].innerHTML = p[i].innerHTML.replace(" "+pNouns[i][j]+" ", string);
@@ -100,12 +103,18 @@ chrome.runtime.sendMessage({greeting: "inject"}, function(response) {
           })(i, j);
         }
       }
-     }
-   });
-
-
-
+     } });
   }
-
-
 });
+
+  window.addEventListener("message", function(event) {
+      if (event.source != window) return;
+
+       var word = event.data.original;
+       var definition = event.data.translated;
+
+       chrome.runtime.sendMessage({id:"sendingCard" ,word: word, def: definition}, function(response) {
+
+       });
+
+   });
