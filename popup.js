@@ -21,7 +21,7 @@ port.onMessage.addListener(function(msg) {
        TOGGLE.style.backgroundColor = "#455560"
      } else {
        TOGGLE.active = true
-       TOGGLE.innerHTML = "Auto"
+       TOGGLE.innerHTML = "On"
        TOGGLE.style.backgroundColor = "#0A54D3"
      }
 });
