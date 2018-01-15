@@ -90,6 +90,7 @@ function selectDiff(){
 
 $('#toggleQuizlet').click(function() {
     $('#quizletIcon').toggleClass("fa fa-plus fa fa-minus");
+    updateCard();
 });
 
 
@@ -123,6 +124,7 @@ $("#quizlet").click(function() {
 
 // updates card set when
 $("#setSelect").change(function() {
+    saveSet($("#setSelect option:selected").val());
     loadCards();
 });
 
@@ -178,6 +180,7 @@ main();
 function main() {
 
     loadSets();
+    updateCard();
 
 }
 
@@ -230,6 +233,14 @@ function saveUser(username) {
     });
 }
 
+//saves the set
+function saveSet(set) {
+    chrome.storage.sync.set({'set': set}, function() {
+          // Notify that we saved.
+          console.log("saved set", set);
+    });
+}
+
 // loads the select field with user's available sets
 function loadSets() {
     chrome.storage.sync.get(['username', 'authToken'], function(items) {
@@ -250,6 +261,7 @@ function loadSets() {
         })
         .done(function(res) {
             console.log(res);
+            $('#setSelect option').remove();
             res.forEach(function(set) {
                 $("#setSelect").append("<option value='" + set.id + "'>" + set.title + "</option>");
             });
@@ -281,7 +293,6 @@ function loadCards() {
             dataType: "json"
         })
         .done(function(res) {
-            console.log(res);
             var cards = [];
             res.forEach(function(term) {
                 cards.push([term.term, term.definition]);
@@ -289,7 +300,6 @@ function loadCards() {
 
             chrome.storage.sync.set({'currentCards': cards}, function() {
                   // Notify that we saved.
-                  console.log(cards);
                   updateCard();
             });
 
