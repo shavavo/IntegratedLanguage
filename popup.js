@@ -88,19 +88,14 @@ function selectDiff(){
   chrome.tabs.executeScript(currTab.id, {file: "inject.js"})
 }
 
-
-
+$('#toggleQuizlet').click(function() {
+    $('#quizletIcon').toggleClass("fa fa-plus fa fa-minus");
+});
 
 
 // also add a feature so the last one you select is saved in storage
 // then you have to change this every time they select a new set
 // also make sure that you change it in the click word function as well
-
-$("#translateWord").hover(function() {
-    $(this).text("Philly");
-}, function() {
-    $(this).text("Billy");
-});
 
 // handles user authorization for the Quizlet API
 $("#quizlet").click(function() {

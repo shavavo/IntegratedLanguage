@@ -1,4 +1,5 @@
 {
+    "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCNxbeYbxnMB9L788ALfgWazpSqfHsylFfXpFmeh0eBprnJKzfrqDDpWrrvAoU+nKAJyYPDoEhhE+tZKdXF8auOYJPWCHQ4COsqzjQim44Hv+e8EmSsEB4K3tZGdhaYfd8IRJzZ/vVU1IZzWufV+BGi9NHLgXE+daK2eij1Zjvj4wIDAQAB",
   "manifest_version": 2,
 
   "name": "Integrated Language",
@@ -7,7 +8,7 @@
 
   "content_scripts": [ {
     "matches": ["*://*/*","http://*/*", "https://*/*"],
-    "js": ["lib/jquery.js", "lib/compromise.js","inject.js"],
+    "js": ["lib/jquery.min.js", "lib/compromise.js","inject.js"],
     "run_at": "document_end"
   } ],
 
@@ -16,7 +17,7 @@
   },
 
   "background": {
-    "scripts": ["config.js","lib/jquery.js", "lib/bootstrap.js","lib/compromise.js","background.js"]
+    "scripts": ["config.js","lib/jquery.min.js", "lib/bootstrap.min.js","lib/compromise.js","background.js"]
   },
 
   "browser_action": {

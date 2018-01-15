@@ -16,7 +16,7 @@
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background: #3F51B5;
+    background: rgb(66, 86, 244);
     cursor: pointer;
 }
 
@@ -24,7 +24,7 @@
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background: #3F51B5;
+    background: rgb(66, 86, 244);
     cursor: pointer;
 }
 
@@ -123,4 +123,20 @@
 /* back, initially hidden pane */
 .back {
 	transform: rotateY(180deg);
+}
+
+.collapsing {
+    -webkit-transition: none;
+    transition: none;
+    display: none;
+}
+
+#quizletIcon {
+    margin-left: 5px;
+}
+
+#toggleQuizlet {
+    color: rgb(66, 86, 244);
+    text-decoration: none;
+    font-size: 15px;
 }
