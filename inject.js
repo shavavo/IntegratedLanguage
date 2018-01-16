@@ -21,7 +21,7 @@ chrome.storage.sync.get(['auto', 'language', 'difficulty', 'apiKey', 'whitelist'
 
       document.body.innerHTML = data.substring(x, y+7);
 
-      
+
       var language = items.language;
       var difficulty = items.difficulty;
       var translateAPIKey = items.apiKey;
@@ -69,7 +69,7 @@ chrome.storage.sync.get(['auto', 'language', 'difficulty', 'apiKey', 'whitelist'
         // Remove nouns that repeat
         var uniqueNouns = [];
         $.each(nouns, function(i, el){
-          if(($.inArray(el, uniqueNouns) === -1) && (Math.floor(Math.random() * 100) + 1 <(100-10*(10-difficulty)))) {
+          if(($.inArray(el, uniqueNouns) === -1) && (Math.floor(Math.random() * 100) + 1 <(100-(100-difficulty)))) {
             uniqueNouns.push(el);
           }
         });
