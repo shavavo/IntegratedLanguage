@@ -1,4 +1,15 @@
-//// David's Section
+// Updates quizlet elements based off if user has logged in before
+chrome.storage.sync.get('authToken', function(items) {
+  var connect = document.getElementById("quizlet")
+  var flashcard = document.getElementById("toggleQuizlet")
+  if (items.authToken != null) {
+    connect.style.display = "none"
+    flashcard.style.display = "block"
+  } else {
+    connect.style.display = "block"
+    flashcard.style.display = "none"
+  }
+});
 
 // Checks if array has duplicates
 function hasDuplicates(array) {
