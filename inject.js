@@ -1,6 +1,23 @@
 // Request data from popup.js
 chrome.runtime.sendMessage({greeting: "inject"}, function(response) {
   if (response.auto == true) {
+
+    // Adds listener of onClick, sending the word and definition to be used in Quizlet API call in background.js
+    //console.log("Listener added");
+    window.addEventListener("message", function(event) {
+        if (event.source != window) return;
+
+        var word = event.data.original;
+        var definition = event.data.translated;
+
+        console.log(event);
+
+        chrome.runtime.sendMessage({id:"sendingCard" ,word: word, def: definition}, function(response) {
+
+        });
+
+     });
+
     // Get HTML of entire site, used to restore in between changes
     $.ajax({ url: "", success: function(data) {
 
@@ -39,11 +56,11 @@ chrome.runtime.sendMessage({greeting: "inject"}, function(response) {
           node.innerHTML = str;
           document.body.appendChild(node);
       }
-      
+
       addStyleString("span{font-size:1em}");
       addStyleString("span{padding:.2rem .4rem;border-radius:.25rem}");
 
-      addScript("function extract(x,y, z){ data = {original: y, translated: z}; window.postMessage(data, '*'); } ")
+      addScript("function extract(x, y, z){ data = {original: y, translated: z}; window.postMessage(data, '*'); } ")
 
 
       for(var i=0; i<p.length; i++){
@@ -107,15 +124,3 @@ chrome.runtime.sendMessage({greeting: "inject"}, function(response) {
      } });
   }
 });
-
-  window.addEventListener("message", function(event) {
-      if (event.source != window) return;
-
-       var word = event.data.original;
-       var definition = event.data.translated;
-
-       chrome.runtime.sendMessage({id:"sendingCard" ,word: word, def: definition}, function(response) {
-
-       });
-
-   });

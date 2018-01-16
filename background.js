@@ -22,21 +22,26 @@ chrome.extension.onConnect.addListener(function(port) {
  });
 
 // posts word to Quizlet API when a foreign word is clicked
+
+
 chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
+    function (request, sender, sendResponse) {
+
+      console.log("ran");
+
       if (request.greeting == "inject"){
           sendResponse({auto: auto, language: language, difficulty: difficulty, apiKey: apiKey});
       }
         if(request.id == "sendingCard") {
             chrome.storage.sync.get(null, function (data) { console.info(data); });
             chrome.storage.sync.get(['authToken', 'set'], function(items) {
-                console.log(items);
-                console.log("reached here");
+                //console.log(items);
+                //console.log("reached here");
                 var token = items.authToken;
-                console.log(token);
+                //console.log(token);
                 var currentSet = items.set;
                 var url = "https://api.quizlet.com/2.0/sets/" + currentSet + "/terms";
-                console.log(url);
+                //console.log(url);
                 var word = request.word;
                 var definition = request.def;
 
@@ -57,14 +62,16 @@ chrome.runtime.onMessage.addListener(
                 })
                 .done(function(res) {
                     chrome.runtime.sendMessage({command: "loadCards"}, function(response) {
-                        console.log("sent message to background");
+                        //console.log("sent message to background");
                     });
-                    console.log("post successful");
+                    //console.log("post successful");
                 })
                 .fail(function(err) {
-                    console.log(err.error_description);
+                    //console.log(err.error_description);
                 });
             });
         }
       }
   );
+
+  
