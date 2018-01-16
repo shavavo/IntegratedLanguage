@@ -20,6 +20,8 @@ chrome.storage.sync.get(['auto', 'language', 'difficulty', 'apiKey', 'whitelist'
       var y = data.search("</body>");
 
       document.body.innerHTML = data.substring(x, y+7);
+
+      
       var language = items.language;
       var difficulty = items.difficulty;
       var translateAPIKey = items.apiKey;
