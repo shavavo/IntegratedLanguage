@@ -1,5 +1,6 @@
 // Updates quizlet elements based off if user has logged in before
 chrome.storage.sync.get('authToken', function(items) {
+  items.authToken = 5
   var connect = document.getElementById("quizlet")
   var flashcard = document.getElementById("toggleQuizlet")
   if (items.authToken != null) {
