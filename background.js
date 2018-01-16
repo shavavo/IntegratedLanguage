@@ -1,37 +1,10 @@
-// background.js retains previous user settings from popup.js
-
-
-// Initialize language and difficulty
-var language = "hy";
-var difficulty = 5;
-var auto = false;
 var apiKey = config.TRANSLATE_API_KEY;
 
+// Save apiKey to storage
 chrome.storage.sync.set({'apiKey': apiKey});
-
-// chrome.extension.onConnect.addListener(function(port) {
-//       port.onMessage.addListener(function(msg) {
-//           // Send language and difficulty
-//           if(msg[0]==0){
-//             port.postMessage([language, difficulty, auto]);
-//           }
-//           // Store language and difficulty
-//           else if(msg[0]==1){
-//             language = msg[1];
-//             difficulty = msg[2];
-//             auto = msg[3];
-//           }
-//       });
-//  });
-
-// posts word to Quizlet API when a foreign word is clicked
-
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
-
-      //console.log("ran");
-
       if (request.greeting == "inject"){
           sendResponse({auto: auto, language: language, difficulty: difficulty, apiKey: apiKey});
       }

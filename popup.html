@@ -2,15 +2,15 @@
 <html lang="en-US" style="height: 300px; width: 325px;">
 
 <head >
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="lib/fa/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="popup.css" />
-    <script src="lib/jquery.min.js"></script>
-    <script src="lib/bootstrap.min.js"></script>
-    <script src='config.js'></script>
-    <script src="popup.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="lib/fa/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="popup.css" />
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/bootstrap.min.js"></script>
+  <script src='config.js'></script>
+  <script src="popup.js" defer></script>
 </head>
 
 <body>
@@ -54,40 +54,40 @@
 
 
     <p> Difficulty: </p>
-        <div class="slidecontainer">
-          <input type="range" min="1" max="10" value="5" class="slider" id="difficulty">
+    <div class="slidecontainer">
+      <input type="range" min="1" max="10" value="5" class="slider" id="difficulty">
+    </div>
+
+    <button width = "200px" id="toggle" type="button" class="btn btn-block" style="margin: 10px 0px 10px 0px; color:#ffffff"  data-toggle="button" aria-pressed="false" autocomplete="off">
+      Off for this Domain
+    </button>
+
+
+
+    <!-- <div id="wordContainer">
+    <span id="translateWord">Doggy</span>
+  </div> -->
+  <a data-toggle="collapse" href="#flashCardContainer" id="toggleQuizlet">Quizlet<i id="quizletIcon" class="fa fa-plus"></i></a>
+
+  <div id="flashCardContainer" class="collapse in">
+    <button id="quizlet">Connect</button>
+
+    <select name="" id="setSelect">
+      <!-- sets are loaded into here -->
+    </select>
+
+    <div class="flip-container" id="card" ontouchstart="this.classList.toggle('hover');">
+      <div class="flipper">
+        <div class="front">
+          <span class="flashWord" id="term"></span>
         </div>
-
-        <button width = "200px" id="toggle" type="button" class="btn btn-block" style="margin: 10px 0px 10px 0px; color:#ffffff"  data-toggle="button" aria-pressed="false" autocomplete="off">
-          Off
-        </button>
-
-
-
-      <!-- <div id="wordContainer">
-            <span id="translateWord">Doggy</span>
-        </div> -->
-        <a data-toggle="collapse" href="#flashCardContainer" id="toggleQuizlet">Quizlet<i id="quizletIcon" class="fa fa-plus"></i></a>
-
-        <div id="flashCardContainer" class="collapse in">
-            <button id="quizlet">Connect</button>
-
-            <select name="" id="setSelect">
-                <!-- sets are loaded into here -->
-            </select>
-
-            <div class="flip-container" id="card" ontouchstart="this.classList.toggle('hover');">
-                <div class="flipper">
-                    <div class="front">
-                        <span class="flashWord" id="term"></span>
-                    </div>
-                    <div class="back">
-                        <span class="flashWord" id="termTranslation"></span>
-                    </div>
-                </div>
-            </div>
+        <div class="back">
+          <span class="flashWord" id="termTranslation"></span>
         </div>
-
-
+      </div>
+    </div>
   </div>
+
+
+</div>
 </body>

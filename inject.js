@@ -1,24 +1,16 @@
 // Request data from popup.js
 chrome.storage.sync.get(['auto', 'language', 'difficulty', 'apiKey', 'whitelist'], function(items) {
-    console.log( items.whitelist);
-    console.log( items.whitelist.indexOf(window.location.host) != -1 );
-
-   if ( items.whitelist.indexOf(window.location.host) != -1) {
+  // Checks if current domain is on whitelist
+  if ( items.whitelist.indexOf(window.location.host) != -1) {
     // Adds listener of onClick, sending the word and definition to be used in Quizlet API call in background.js
-    //console.log("Listener added");
     window.addEventListener("message", function(event) {
-        if (event.source != window) return;
+      if (event.source != window) return;
 
-        var word = event.data.original;
-        var definition = event.data.translated;
+      var word = event.data.original;
+      var definition = event.data.translated;
+      chrome.runtime.sendMessage({id:"sendingCard" ,word: word, def: definition});
 
-        //console.log(event);
-
-        chrome.runtime.sendMessage({id:"sendingCard" ,word: word, def: definition}, function(response) {
-
-        });
-
-     });
+    });
 
     // Get HTML of entire site, used to restore in between changes
     $.ajax({ url: "", success: function(data) {
@@ -48,15 +40,15 @@ chrome.storage.sync.get(['auto', 'language', 'difficulty', 'apiKey', 'whitelist'
 
       // Style for code tag
       function addStyleString(str) {
-          var node = document.createElement('style');
-          node.innerHTML = str;
-          document.body.appendChild(node);
+        var node = document.createElement('style');
+        node.innerHTML = str;
+        document.body.appendChild(node);
       }
 
       function addScript(str) {
-          var node = document.createElement('script');
-          node.innerHTML = str;
-          document.body.appendChild(node);
+        var node = document.createElement('script');
+        node.innerHTML = str;
+        document.body.appendChild(node);
       }
 
       addStyleString("span{font-size:1em}");
@@ -75,9 +67,9 @@ chrome.storage.sync.get(['auto', 'language', 'difficulty', 'apiKey', 'whitelist'
         // Remove nouns that repeat
         var uniqueNouns = [];
         $.each(nouns, function(i, el){
-            if(($.inArray(el, uniqueNouns) === -1) && (Math.floor(Math.random() * 100) + 1 <(100-10*(10-difficulty)))) {
-              uniqueNouns.push(el);
-            }
+          if(($.inArray(el, uniqueNouns) === -1) && (Math.floor(Math.random() * 100) + 1 <(100-10*(10-difficulty)))) {
+            uniqueNouns.push(el);
+          }
         });
         pNouns.push(uniqueNouns);
 
@@ -123,6 +115,6 @@ chrome.storage.sync.get(['auto', 'language', 'difficulty', 'apiKey', 'whitelist'
           })(i, j);
         }
       }
-     } });
+    } });
   }
 });
