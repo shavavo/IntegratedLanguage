@@ -4,7 +4,7 @@
 var language = "hy";
 var difficulty = 5;
 var auto = false;
-var apiKey = config.TRANSLATE_API_KEY
+var apiKey = config.TRANSLATE_API_KEY;
 
 chrome.extension.onConnect.addListener(function(port) {
       port.onMessage.addListener(function(msg) {
@@ -28,7 +28,7 @@ chrome.runtime.onMessage.addListener(
           sendResponse({auto: auto, language: language, difficulty: difficulty, apiKey: apiKey});
       }
         if(request.id == "sendingCard") {
-            chrome.storage.sync.get(null, function (data) { console.info(data) });
+            chrome.storage.sync.get(null, function (data) { console.info(data); });
             chrome.storage.sync.get(['authToken', 'set'], function(items) {
                 console.log(items);
                 console.log("reached here");

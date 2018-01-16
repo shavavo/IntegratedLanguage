@@ -14,7 +14,7 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
   currTab = tabs[0];
 });
 
-var TOGGLE = document.getElementById("toggle")
+var TOGGLE = document.getElementById("toggle");
 var e = document.getElementById("languageSelect");
 var DIFF =  document.getElementById("difficulty");
 
@@ -25,7 +25,7 @@ if(e){
   e.addEventListener('change', selectLanguage, false);
 }
 if(TOGGLE){
-  TOGGLE.addEventListener('click', toggled, false)
+  TOGGLE.addEventListener('click', toggled, false);
 }
 
 // Request difficulty, language from background.js, set corresponding fields
@@ -44,47 +44,47 @@ port.onMessage.addListener(function(msg) {
      } else {
          TOGGLE.active = true;
          TOGGLE.innerHTML = "On";
-         TOGGLE.style.backgroundColor = "#0A54D3"
+         TOGGLE.style.backgroundColor = "#0A54D3";
      }
 });
 
 function toggled() {
     if (auto == true) {
-        auto = false
-        TOGGLE.active = false
-        TOGGLE.innerHTML = "Off"
-        TOGGLE.style.backgroundColor = "#455560"
+        auto = false;
+        TOGGLE.active = false;
+        TOGGLE.innerHTML = "Off";
+        TOGGLE.style.backgroundColor = "#455560";
         port.postMessage([1,language, difficulty, auto]);
 
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
           chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
         });
     } else {
-      auto = true
-      TOGGLE.active = true
-      TOGGLE.innerHTML = "On"
-      TOGGLE.style.backgroundColor = "#0A54D3"
+      auto = true;
+      TOGGLE.active = true;
+      TOGGLE.innerHTML = "On";
+      TOGGLE.style.backgroundColor = "#0A54D3";
       port.postMessage([1,language, difficulty, auto]);
 
       console.log(currTab.id);
-      chrome.tabs.executeScript(currTab.id, {file: "inject.js"})
+      chrome.tabs.executeScript(currTab.id, {file: "inject.js"});
 
 
     }
-    window.close()
+    window.close();
 
 }
 
 function selectLanguage(){
   language = e.options[e.selectedIndex].value;
   port.postMessage([1,language, difficulty, auto]);
-  chrome.tabs.executeScript(currTab.id, {file: "inject.js"})
+  chrome.tabs.executeScript(currTab.id, {file: "inject.js"});
 }
 
 function selectDiff(){
   difficulty = DIFF.value;
   port.postMessage([1,language, difficulty, auto]);
-  chrome.tabs.executeScript(currTab.id, {file: "inject.js"})
+  chrome.tabs.executeScript(currTab.id, {file: "inject.js"});
 }
 
 
@@ -120,8 +120,6 @@ $("#quizlet").click(function() {
                     redirect_url.search("code=") + 5,
                     redirect_url.length
                 );
-                console.log("url", redirect_url);
-                console.log("code", code);
                 getAccessToken(code, redirect_url);
             }
         }
@@ -179,8 +177,6 @@ function getAccessToken(code, redirect_url) {
         }
     })
     .done(function(res) {
-        console.log(res);
-        console.log("token", res.access_token);
         saveToken(res.access_token);
         saveUser(res.user_id);
         loadSets();
@@ -209,12 +205,12 @@ function loadSets() {
             dataType: "json"
         })
         .done(function(res) {
-            console.log(res);
             $('#setSelect option').remove();
             res.forEach(function(set) {
                 $("#setSelect").append("<option value='" + set.id + "'>" + set.title + "</option>");
             });
             loadCards();
+            previousSet();
         })
         .fail(function(err) {
             console.log(err.error_description);
@@ -268,6 +264,14 @@ function updateCard() {
     });
 }
 
+function previousSet() {
+    chrome.storage.sync.get('set', function(items) {
+        var currentSet = items.set;
+        console.log("previous set", currentSet);
+        $('#setSelect').val(currentSet);
+    });
+}
+
 
 
 /// methods for persisting Quizlet options
@@ -276,7 +280,6 @@ function updateCard() {
 function saveToken(token) {
     chrome.storage.sync.set({'authToken': token}, function() {
           // Notify that we saved.
-          console.log("saved to local storage", token);
     });
 }
 
@@ -284,7 +287,6 @@ function saveToken(token) {
 function saveUser(username) {
     chrome.storage.sync.set({'username': username}, function() {
           // Notify that we saved.
-          console.log("saved to local storage", username);
     });
 }
 
@@ -292,6 +294,5 @@ function saveUser(username) {
 function saveSet(set) {
     chrome.storage.sync.set({'set': set}, function() {
           // Notify that we saved.
-          console.log("saved set", set);
     });
 }
