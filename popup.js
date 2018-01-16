@@ -10,6 +10,7 @@ var difficulty;
 var auto;
 var currTab;
 
+// Get tabID for future use in refreshing
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
   currTab = tabs[0];
 });
@@ -18,6 +19,7 @@ var TOGGLE = document.getElementById("toggle");
 var e = document.getElementById("languageSelect");
 var DIFF =  document.getElementById("difficulty");
 
+// Create event listeners when settings are changed, calls corresponding function
 if(DIFF){
   DIFF.addEventListener('change', selectDiff, false);
 }
@@ -28,25 +30,45 @@ if(TOGGLE){
   TOGGLE.addEventListener('click', toggled, false);
 }
 
-// Request difficulty, language from background.js, set corresponding fields
-port.postMessage([0]);
-port.onMessage.addListener(function(msg) {
-      console.log(msg);
-     language = msg[0];
-     difficulty = msg[1];
-     auto = msg[2];
-     e.value = msg[0];
-     DIFF.value = msg[1];
-     if(auto == false) {
-         TOGGLE.active = false;
-         TOGGLE.innerHTML = "Off";
-         TOGGLE.style.backgroundColor = "#455560";
-     } else {
-         TOGGLE.active = true;
-         TOGGLE.innerHTML = "On";
-         TOGGLE.style.backgroundColor = "#0A54D3";
-     }
+chrome.storage.sync.get(['language', 'difficulty', 'auto'], function(items) {
+    language = items.language
+    difficulty = items.difficulty
+    auto = items.auto
+    //console.log(language, difficulty, auto);
+    e.value = language;
+    DIFF.value = difficulty;
+    if(auto == false) {
+        TOGGLE.active = false;
+        TOGGLE.innerHTML = "Off";
+        TOGGLE.style.backgroundColor = "#455560";
+    } else {
+        TOGGLE.active = true;
+        TOGGLE.innerHTML = "On";
+        TOGGLE.style.backgroundColor = "#0A54D3";
+    }
 });
+
+// Request difficulty, language from background.js, set corresponding fields
+// port.postMessage([0]);
+// port.onMessage.addListener(function(msg) {
+//       console.log(msg);
+//      language = msg[0];
+//      difficulty = msg[1];
+//      auto = msg[2];
+//      e.value = msg[0];
+//      DIFF.value = msg[1];
+//      if(auto == false) {
+//          TOGGLE.active = false;
+//          TOGGLE.innerHTML = "Off";
+//          TOGGLE.style.backgroundColor = "#455560";
+//      } else {
+//          TOGGLE.active = true;
+//          TOGGLE.innerHTML = "On";
+//          TOGGLE.style.backgroundColor = "#0A54D3";
+//      }
+// });
+
+
 
 function toggled() {
     if (auto == true) {
@@ -54,7 +76,7 @@ function toggled() {
         TOGGLE.active = false;
         TOGGLE.innerHTML = "Off";
         TOGGLE.style.backgroundColor = "#455560";
-        port.postMessage([1,language, difficulty, auto]);
+        //port.postMessage([1,language, difficulty, auto]);
 
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
           chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
@@ -64,27 +86,48 @@ function toggled() {
       TOGGLE.active = true;
       TOGGLE.innerHTML = "On";
       TOGGLE.style.backgroundColor = "#0A54D3";
-      port.postMessage([1,language, difficulty, auto]);
+      //port.postMessage([1,language, difficulty, auto]);
 
-      console.log(currTab.id);
+      //console.log(currTab.id);
       chrome.tabs.executeScript(currTab.id, {file: "inject.js"});
 
-
     }
+
+    chrome.storage.sync.set({'auto': auto}, function() {
+        // Notify that we saved.
+        //console.log('Auto saved');
+    });
+
     window.close();
 
 }
 
 function selectLanguage(){
   language = e.options[e.selectedIndex].value;
-  port.postMessage([1,language, difficulty, auto]);
+  //port.postMessage([1,language, difficulty, auto]);
+
+  chrome.storage.sync.set({'language': language}, function() {
+      // Notify that we saved.
+      //console.log('Language saved');
+  });
+
   chrome.tabs.executeScript(currTab.id, {file: "inject.js"});
+
+
 }
 
 function selectDiff(){
   difficulty = DIFF.value;
-  port.postMessage([1,language, difficulty, auto]);
+  //port.postMessage([1,language, difficulty, auto]);
+
+  chrome.storage.sync.set({'difficulty': difficulty}, function() {
+      // Notify that we saved.
+      //console.log('Difficulty saved');
+  });
+
   chrome.tabs.executeScript(currTab.id, {file: "inject.js"});
+
+
 }
 
 
@@ -267,7 +310,7 @@ function updateCard() {
 function previousSet() {
     chrome.storage.sync.get('set', function(items) {
         var currentSet = items.set;
-        console.log("previous set", currentSet);
+        //console.log("previous set", currentSet);
         $('#setSelect').val(currentSet);
     });
 }

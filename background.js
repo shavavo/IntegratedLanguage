@@ -6,20 +6,25 @@ var difficulty = 5;
 var auto = false;
 var apiKey = config.TRANSLATE_API_KEY;
 
-chrome.extension.onConnect.addListener(function(port) {
-      port.onMessage.addListener(function(msg) {
-          // Send language and difficulty
-          if(msg[0]==0){
-            port.postMessage([language, difficulty, auto]);
-          }
-          // Store language and difficulty
-          else if(msg[0]==1){
-            language = msg[1];
-            difficulty = msg[2];
-            auto = msg[3];
-          }
-      });
- });
+chrome.storage.sync.set({'apiKey': apiKey}, function() {
+    // Notify that we saved.
+    //console.log('APIKey saved');
+});
+
+// chrome.extension.onConnect.addListener(function(port) {
+//       port.onMessage.addListener(function(msg) {
+//           // Send language and difficulty
+//           if(msg[0]==0){
+//             port.postMessage([language, difficulty, auto]);
+//           }
+//           // Store language and difficulty
+//           else if(msg[0]==1){
+//             language = msg[1];
+//             difficulty = msg[2];
+//             auto = msg[3];
+//           }
+//       });
+//  });
 
 // posts word to Quizlet API when a foreign word is clicked
 
@@ -27,7 +32,7 @@ chrome.extension.onConnect.addListener(function(port) {
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
 
-      console.log("ran");
+      //console.log("ran");
 
       if (request.greeting == "inject"){
           sendResponse({auto: auto, language: language, difficulty: difficulty, apiKey: apiKey});
@@ -73,5 +78,3 @@ chrome.runtime.onMessage.addListener(
         }
       }
   );
-
-  

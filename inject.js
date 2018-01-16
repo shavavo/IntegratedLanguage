@@ -1,6 +1,6 @@
 // Request data from popup.js
-chrome.runtime.sendMessage({greeting: "inject"}, function(response) {
-  if (response.auto == true) {
+chrome.storage.sync.get(['auto', 'language', 'difficulty', 'apiKey'], function(items) {
+   if (items.auto == true) {
 
     // Adds listener of onClick, sending the word and definition to be used in Quizlet API call in background.js
     //console.log("Listener added");
@@ -26,9 +26,9 @@ chrome.runtime.sendMessage({greeting: "inject"}, function(response) {
       var y = data.search("</body>");
 
       document.body.innerHTML = data.substring(x, y+7);
-      var language = response.language;
-      var difficulty = response.difficulty;
-      var translateAPIKey = response.apiKey;
+      var language = items.language;
+      var difficulty = items.difficulty;
+      var translateAPIKey = items.apiKey;
 
       // Invisible div to measure pixel width of text
       var measure = document.getElementById("measure");
