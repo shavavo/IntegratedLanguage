@@ -1,7 +1,9 @@
 // Request data from popup.js
-chrome.storage.sync.get(['auto', 'language', 'difficulty', 'apiKey'], function(items) {
-   if (items.auto == true) {
+chrome.storage.sync.get(['auto', 'language', 'difficulty', 'apiKey', 'whitelist'], function(items) {
+    console.log( items.whitelist);
+    console.log( items.whitelist.indexOf(window.location.host) != -1 );
 
+   if ( items.whitelist.indexOf(window.location.host) != -1) {
     // Adds listener of onClick, sending the word and definition to be used in Quizlet API call in background.js
     //console.log("Listener added");
     window.addEventListener("message", function(event) {
@@ -10,7 +12,7 @@ chrome.storage.sync.get(['auto', 'language', 'difficulty', 'apiKey'], function(i
         var word = event.data.original;
         var definition = event.data.translated;
 
-        console.log(event);
+        //console.log(event);
 
         chrome.runtime.sendMessage({id:"sendingCard" ,word: word, def: definition}, function(response) {
 

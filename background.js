@@ -1,15 +1,13 @@
 // background.js retains previous user settings from popup.js
 
+
 // Initialize language and difficulty
 var language = "hy";
 var difficulty = 5;
 var auto = false;
 var apiKey = config.TRANSLATE_API_KEY;
 
-chrome.storage.sync.set({'apiKey': apiKey}, function() {
-    // Notify that we saved.
-    //console.log('APIKey saved');
-});
+chrome.storage.sync.set({'apiKey': apiKey});
 
 // chrome.extension.onConnect.addListener(function(port) {
 //       port.onMessage.addListener(function(msg) {

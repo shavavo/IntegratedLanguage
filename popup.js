@@ -1,14 +1,32 @@
 //// David's Section
 
-// Initialize connection with background.js
-var port = chrome.extension.connect({
-     name: "Connect"
-});
+function hasDuplicates(array) {
+    return (new Set(array)).size !== array.length;
+}
+
+function extractHostname(url) {
+    var hostname;
+    //find & remove protocol (http, ftp, etc.) and get hostname
+
+    if (url.indexOf("://") > -1) {
+        hostname = url.split('/')[2];
+    }
+    else {
+        hostname = url.split('/')[0];
+    }
+
+    //find & remove port number
+    hostname = hostname.split(':')[0];
+    //find & remove "?"
+    hostname = hostname.split('?')[0];
+
+    return hostname;
+}
 
 var language;
 var difficulty;
-var auto;
 var currTab;
+var auto;
 
 // Get tabID for future use in refreshing
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -30,14 +48,17 @@ if(TOGGLE){
   TOGGLE.addEventListener('click', toggled, false);
 }
 
-chrome.storage.sync.get(['language', 'difficulty', 'auto'], function(items) {
+chrome.storage.sync.get({language: 'hy', difficulty: 5, whitelist: []}, function(items) {
+    onList = items.whitelist.indexOf( extractHostname(currTab.url) ) != -1
     language = items.language
     difficulty = items.difficulty
-    auto = items.auto
-    //console.log(language, difficulty, auto);
     e.value = language;
     DIFF.value = difficulty;
-    if(auto == false) {
+
+    console.log(items.whitelist);
+    console.log(onList);
+
+    if( !onList ) {
         TOGGLE.active = false;
         TOGGLE.innerHTML = "Off";
         TOGGLE.style.backgroundColor = "#455560";
@@ -48,57 +69,45 @@ chrome.storage.sync.get(['language', 'difficulty', 'auto'], function(items) {
     }
 });
 
-// Request difficulty, language from background.js, set corresponding fields
-// port.postMessage([0]);
-// port.onMessage.addListener(function(msg) {
-//       console.log(msg);
-//      language = msg[0];
-//      difficulty = msg[1];
-//      auto = msg[2];
-//      e.value = msg[0];
-//      DIFF.value = msg[1];
-//      if(auto == false) {
-//          TOGGLE.active = false;
-//          TOGGLE.innerHTML = "Off";
-//          TOGGLE.style.backgroundColor = "#455560";
-//      } else {
-//          TOGGLE.active = true;
-//          TOGGLE.innerHTML = "On";
-//          TOGGLE.style.backgroundColor = "#0A54D3";
-//      }
-// });
-
-
 
 function toggled() {
-    if (auto == true) {
-        auto = false;
+    if (onList == true) {
         TOGGLE.active = false;
         TOGGLE.innerHTML = "Off";
         TOGGLE.style.backgroundColor = "#455560";
-        //port.postMessage([1,language, difficulty, auto]);
+
+        chrome.storage.sync.get({whitelist: []}, function(items) {
+            var index = items.whitelist.indexOf(extractHostname(currTab.url))
+            if (index > -1) {
+                items.whitelist.splice(index, 1);
+            }
+            chrome.storage.sync.set({'whitelist': items.whitelist});
+
+        });
 
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
           chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
         });
     } else {
-      auto = true;
-      TOGGLE.active = true;
-      TOGGLE.innerHTML = "On";
-      TOGGLE.style.backgroundColor = "#0A54D3";
-      //port.postMessage([1,language, difficulty, auto]);
+          TOGGLE.active = true;
+          TOGGLE.innerHTML = "On";
+          TOGGLE.style.backgroundColor = "#0A54D3";
 
-      //console.log(currTab.id);
-      chrome.tabs.executeScript(currTab.id, {file: "inject.js"});
+          chrome.storage.sync.get({whitelist: []}, function(items) {
+              items.whitelist.push(extractHostname(currTab.url))
 
+              if(hasDuplicates(items.whitelist)) {
+                  items.whitelist.pop()
+                  console.log("Duplicate: Not Added");
+              } else {
+                chrome.storage.sync.set({'whitelist': items.whitelist}, function() {
+                    chrome.tabs.executeScript(currTab.id, {file: "inject.js"});
+                });
+              }
+          });
     }
 
-    chrome.storage.sync.set({'auto': auto}, function() {
-        // Notify that we saved.
-        //console.log('Auto saved');
-    });
-
-    window.close();
+    window.close()
 
 }
 
