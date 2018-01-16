@@ -1,3 +1,5 @@
+//// David's Section
+
 // Initialize connection with background.js
 var port = chrome.extension.connect({
      name: "Connect"
@@ -46,9 +48,6 @@ port.onMessage.addListener(function(msg) {
      }
 });
 
-
-
-
 function toggled() {
     if (auto == true) {
         auto = false
@@ -88,15 +87,22 @@ function selectDiff(){
   chrome.tabs.executeScript(currTab.id, {file: "inject.js"})
 }
 
+
+
+
+
+
+
+
+
+//// Grant's Section
+
+/// methods for event-handling
+
 $('#toggleQuizlet').click(function() {
     $('#quizletIcon').toggleClass("fa fa-plus fa fa-minus");
     updateCard();
 });
-
-
-// also add a feature so the last one you select is saved in storage
-// then you have to change this every time they select a new set
-// also make sure that you change it in the click word function as well
 
 // handles user authorization for the Quizlet API
 $("#quizlet").click(function() {
@@ -129,7 +135,6 @@ $("#setSelect").change(function() {
 });
 
 // change card when you press right arrow
-// fix this so only right arrow changes the card
 $(document).keydown(function(e) {
     switch(e.which) {
         case 39: // right
@@ -139,40 +144,9 @@ $(document).keydown(function(e) {
     updateCard();
 });
 
-//for the actual version --> set all terms to the same class
-$("#translateWord").click(function() {
-    var currentSet = $("#setSelect option:selected").val();
 
-    chrome.storage.sync.get('authToken', function(items) {
-        var token = items.authToken;
-        var url = "https://api.quizlet.com/2.0/sets/" + currentSet + "/terms";
-        var word = $("#translateWord").text();
 
-        $.ajax({
-            xhrFields: {
-                withCredentials: true
-            },
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-            },
-            method: "POST",
-            url: url,
-            dataType: "json",
-            data: {
-                "term": word,
-                "definition": "testing"
-            }
-        })
-        .done(function(res) {
-            loadCards();
-            console.log("post successful");
-        })
-        .fail(function(err) {
-            console.log(err.error_description);
-        });
-    });
-});
-
+/// methods for core functionality minus events
 
 // runs the app, starting the chain of dominoes
 main();
@@ -180,7 +154,6 @@ main();
 function main() {
 
     loadSets();
-    updateCard();
 
 }
 
@@ -214,30 +187,6 @@ function getAccessToken(code, redirect_url) {
     })
     .fail(function(err) {
         console.log(err.error_description);
-    });
-}
-
-// saves access token for API calls
-function saveToken(token) {
-    chrome.storage.sync.set({'authToken': token}, function() {
-          // Notify that we saved.
-          console.log("saved to local storage", token);
-    });
-}
-
-// saves user ID of user
-function saveUser(username) {
-    chrome.storage.sync.set({'username': username}, function() {
-          // Notify that we saved.
-          console.log("saved to local storage", username);
-    });
-}
-
-//saves the set
-function saveSet(set) {
-    chrome.storage.sync.set({'set': set}, function() {
-          // Notify that we saved.
-          console.log("saved set", set);
     });
 }
 
@@ -316,5 +265,33 @@ function updateCard() {
         var randomIndex = Math.floor(Math.random() * items.currentCards.length);
         $("#term").text(items.currentCards[randomIndex][0]);
         $("#termTranslation").text(items.currentCards[randomIndex][1]);
+    });
+}
+
+
+
+/// methods for persisting Quizlet options
+
+// saves access token for API calls
+function saveToken(token) {
+    chrome.storage.sync.set({'authToken': token}, function() {
+          // Notify that we saved.
+          console.log("saved to local storage", token);
+    });
+}
+
+// saves user ID of user
+function saveUser(username) {
+    chrome.storage.sync.set({'username': username}, function() {
+          // Notify that we saved.
+          console.log("saved to local storage", username);
+    });
+}
+
+//saves the set
+function saveSet(set) {
+    chrome.storage.sync.set({'set': set}, function() {
+          // Notify that we saved.
+          console.log("saved set", set);
     });
 }
