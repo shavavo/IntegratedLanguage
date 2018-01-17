@@ -4,14 +4,18 @@ chrome.storage.sync.get({auto: false, language:'hy', difficulty:60, apiKey:"0", 
   // Checks if current domain is on whitelist
   if ( items.whitelist.indexOf(window.location.host) != -1) {
     // Adds listener of onClick, sending the word and definition to be used in Quizlet API call in background.js
-    window.addEventListener("message", function(event) {
-      if (event.source != window) return;
-
+    var clickFunction = function (event) {
+      console.log("Triggered");
       var word = event.data.original;
       var definition = event.data.translated;
-      chrome.runtime.sendMessage({id:"sendingCard" ,word: word, def: definition});
+      chrome.runtime.sendMessage({id:"sendingCard", word: word, def: definition});
+      window.removeEventListener('message',clickFunction, false );
+    };
 
-    });
+    window.addEventListener("message", clickFunction, false);
+
+
+
 
     // Get HTML of entire site, used to restore in between changes
     $.ajax({ url: "", success: function(data) {
