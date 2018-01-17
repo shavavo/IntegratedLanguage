@@ -66,15 +66,7 @@
     border: 0px;
 }
 
-#changeAccount {
-    text-align: center;
-    position: absolute;
-    margin-top: 170px;
-    width: 150px;
-    font-size: 10px;
-    color: white;
-    margin-left: -25px;
-}
+
 
 
 .flashWord {
@@ -154,4 +146,33 @@
 
 .makeSmaller {
     font-size: 14px;
+}
+
+#changeAccount {
+    text-align: center;
+    position: absolute;
+    margin-top: 170px;
+    width: 150px;
+    font-size: 10px;
+    color: white;
+    margin-left: -100px;
+}
+
+#info {
+    outline: none;
+    border-radius: 0px;
+    background-color: 	rgb(121, 121, 134);
+    text-align: center;
+    width: 10px;
+    border-radius: 50%;
+    position: absolute;
+    margin-top: 170px;
+    font-size: 10px;
+    color: white;
+    margin-left: 55px;
+
+}
+
+.popover {
+  max-width: 85%;
 }
