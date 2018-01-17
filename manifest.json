@@ -1,10 +1,9 @@
 {
-    "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCNxbeYbxnMB9L788ALfgWazpSqfHsylFfXpFmeh0eBprnJKzfrqDDpWrrvAoU+nKAJyYPDoEhhE+tZKdXF8auOYJPWCHQ4COsqzjQim44Hv+e8EmSsEB4K3tZGdhaYfd8IRJzZ/vVU1IZzWufV+BGi9NHLgXE+daK2eij1Zjvj4wIDAQAB",
   "manifest_version": 2,
 
   "name": "Integrated Language",
   "description": "Integrated Language allows you to seamlessly integrate your language learning by translating words on the website you are viewing.",
-  "version": "0.0.1",
+  "version": "1.0.0",
 
   "content_scripts": [ {
     "matches": ["*://*/*","http://*/*", "https://*/*"],
