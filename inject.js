@@ -1,5 +1,6 @@
 // Request data from popup.js
-chrome.storage.sync.get(['auto', 'language', 'difficulty', 'apiKey', 'whitelist'], function(items) {
+
+chrome.storage.sync.get({auto: false, language:'hy', difficulty:60, apiKey:"0", whitelist:[]}, function(items) {
   // Checks if current domain is on whitelist
   if ( items.whitelist.indexOf(window.location.host) != -1) {
     // Adds listener of onClick, sending the word and definition to be used in Quizlet API call in background.js

@@ -1,5 +1,7 @@
 var apiKey = config.TRANSLATE_API_KEY;
 
+//chrome.storage.sync.clear()
+
 // Save apiKey to storage
 chrome.storage.sync.set({'apiKey': apiKey});
 

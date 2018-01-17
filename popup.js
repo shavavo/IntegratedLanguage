@@ -62,7 +62,7 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 });
 
 // Retrieve settings from chrome storage
-chrome.storage.sync.get({language: 'hy', difficulty: 5, whitelist: []}, function(items) {
+chrome.storage.sync.get({language: 'hy', difficulty: 60, whitelist: []}, function(items) {
   // Flag to check if current hostname is on whitelist
   onList = items.whitelist.indexOf( extractHostname(currTab.url) ) != -1
   language = items.language
