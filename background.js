@@ -1,7 +1,7 @@
 var apiKey = config.TRANSLATE_API_KEY;
 
 //chrome.storage.sync.clear()
-
+chrome.storage.sync.set({'listenerAdded': false});
 // Save apiKey to storage
 chrome.storage.sync.set({'apiKey': apiKey});
 

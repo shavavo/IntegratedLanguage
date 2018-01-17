@@ -1,20 +1,22 @@
 // Request data from popup.js
 
-chrome.storage.sync.get({auto: false, language:'hy', difficulty:60, apiKey:"0", whitelist:[]}, function(items) {
+chrome.storage.sync.get({auto: false, language:'hy', difficulty:60, apiKey:"0", whitelist:[], listenerAdded: false}, function(items) {
   // Checks if current domain is on whitelist
   if ( items.whitelist.indexOf(window.location.host) != -1) {
     // Adds listener of onClick, sending the word and definition to be used in Quizlet API call in background.js
-    var clickFunction = function (event) {
-      console.log("Triggered");
-      var word = event.data.original;
-      var definition = event.data.translated;
-      chrome.runtime.sendMessage({id:"sendingCard", word: word, def: definition});
-      window.removeEventListener('message',clickFunction, false );
-    };
+    if ( !items.listenerAdded ) {
+      console.log("listener added");
 
-    window.addEventListener("message", clickFunction, false);
+      window.addEventListener("message", function() {
+        console.log(event.data);
+         var word = event.data.original;
+         var definition = event.data.translated;
 
+        chrome.runtime.sendMessage({id:"sendingCard", word: word, def: definition});
+      });
 
+      chrome.storage.sync.set({'listenerAdded': true});
+    }
 
 
     // Get HTML of entire site, used to restore in between changes
@@ -61,7 +63,7 @@ chrome.storage.sync.get({auto: false, language:'hy', difficulty:60, apiKey:"0", 
       addStyleString("span{font-size:1em}");
       addStyleString("span{padding:.2rem .4rem;border-radius:.25rem}");
 
-      addScript("function extract(x, y, z){ data = {original: y, translated: z}; window.postMessage(data, '*'); } ")
+      addScript("function extract(x, y){ var data = [x, y]; window.postMessage(data,'*'); } ")
 
 
       for(var i=0; i<p.length; i++){
@@ -95,7 +97,7 @@ chrome.storage.sync.get({auto: false, language:'hy', difficulty:60, apiKey:"0", 
 
 
                 // Create HTML to inject
-                var string = "<span onclick=\"extract(\'" + "ff" + i + "_" + j + "\' , \'" + pNouns[i][j] + "\', \'" + returnedData.data.translations[0].translatedText + "\' ) \"  class='translateWord' id='ff"+ i +"_"+ j +"' onmouseover=\"this.innerHTML='"+ pNouns[i][j] +"';\" onmouseout=\"this.innerHTML='"+ returnedData.data.translations[0].translatedText +"';\"style='color: #010101; text-align:center; display: inline-block; margin:auto;'>"+ returnedData.data.translations[0].translatedText+"</span>";
+                var string = "<span onclick=\"extract(\'" + pNouns[i][j] + "\', \'" + returnedData.data.translations[0].translatedText + "\' ) \"  class='translateWord' id='ff"+ i +"_"+ j +"' onmouseover=\"this.innerHTML='"+ pNouns[i][j] +"';\" onmouseout=\"this.innerHTML='"+ returnedData.data.translations[0].translatedText +"';\"style='color: #010101; text-align:center; display: inline-block; margin:auto;'>"+ returnedData.data.translations[0].translatedText+"</span>";
 
                 // Inject HTML
                 p[i].innerHTML = p[i].innerHTML.replace(" "+pNouns[i][j]+" ", string);

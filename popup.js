@@ -88,6 +88,8 @@ chrome.storage.sync.get({language: 'hy', difficulty: 60, whitelist: []}, functio
 
 function toggled() {
   // Translation is on, need to turn off
+
+  console.log(onList);
   if (onList == true) {
     // Change UI to react
     TOGGLE.active = false;
@@ -108,7 +110,7 @@ function toggled() {
     });
 
     // Refresh tab
-    chrome.tabs.update(currTab.id, {url: currTab.url});
+
 
     // Translation is off, need to turn on
   } else {
@@ -122,20 +124,17 @@ function toggled() {
       // Append current hostname to whitelist
       items.whitelist.push(extractHostname(currTab.url))
 
-      // If hostname is already in whitelist, remove
-      if(hasDuplicates(items.whitelist)) {
-        items.whitelist.pop()
-        //console.log("Duplicate: Not Added");
-        // If hostname is unique save changes, and translate page
-      } else {
-        chrome.storage.sync.set({'whitelist': items.whitelist}, function() {
-          chrome.tabs.executeScript(currTab.id, {file: "inject.js"});
-        });
-      }
+      console.log(extractHostname(currTab.url));
+
+      chrome.storage.sync.set({'whitelist': items.whitelist}, function() {
+        chrome.tabs.executeScript(currTab.id, {file: "inject.js"});
+      });
+
     });
   }
 
   // Close popup when done
+  chrome.tabs.update(currTab.id, {url: currTab.url});
   window.close()
 
 }
