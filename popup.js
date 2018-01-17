@@ -159,31 +159,38 @@ function selectDiff(){
 
 /// methods for event-handling
 
-$('#toggleQuizlet').click(function() {
-  $('#quizletIcon').toggleClass("fa fa-plus fa fa-minus");
-  updateCard();
-});
+function quizletAuthorize() {
+    var url = "https://quizlet.com/authorize";
+
+    chrome.identity.launchWebAuthFlow (
+      {
+        "url": url + "?response_type=code&client_id=" + clientID +
+        "&scope=read%20write_set&state=gimmeit",
+        "interactive": true,
+      }, function(redirect_url) {
+        if(typeof redirect_url !== "undefined") {
+          var code = redirect_url.substring(
+            redirect_url.search("code=") + 5,
+            redirect_url.length
+          );
+          getAccessToken(code, redirect_url);
+        }
+      }
+    );
+}
 
 // handles user authorization for the Quizlet API
 $("#quizlet").click(function() {
-  var url = "https://quizlet.com/authorize";
-  var clientID = "Vyrcd9rkrQ";
+  quizletAuthorize();
+});
 
-  chrome.identity.launchWebAuthFlow (
-    {
-      "url": url + "?response_type=code&client_id=" + clientID +
-      "&scope=read%20write_set&state=gimmeit",
-      "interactive": true,
-    }, function(redirect_url) {
-      if(typeof redirect_url !== "undefined") {
-        var code = redirect_url.substring(
-          redirect_url.search("code=") + 5,
-          redirect_url.length
-        );
-        getAccessToken(code, redirect_url);
-      }
-    }
-  );
+$('#changeAccount').click(function (){
+    quizletAuthorize();
+});
+
+$('#toggleQuizlet').click(function() {
+  $('#quizletIcon').toggleClass("fa fa-plus fa fa-minus");
+  updateCard();
 });
 
 // updates card set when
