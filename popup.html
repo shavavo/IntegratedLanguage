@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US" style="height: 325px; width: 325px;">
+<html lang="en-US" style="height: 325px; width: 275px;">
 
 <head >
   <meta charset="UTF-8">
@@ -17,13 +17,13 @@
 
   <div class="jumbotron jumbotron-fluid" style="background-color:rgb(66, 86, 244); padding: 5px; margin-bottom: 15px">
     <div class="container" style="color:white; margin-top:20px;">
-      <h2>IntegratedLanguage</h2>
+      <h4>IntegratedLanguage</h4>
     </div>
   </div>
 
   <div class="container">
     <div class="form-group">
-      <label for="exampleFormControlSelect1">Choose a Language to translate to:</label>
+      <label for="exampleFormControlSelect1" class="makeSmaller">Choose a Language to translate to:</label>
       <select class="form-control" id="languageSelect" >
         <option value="hy">Armenian</option>
         <option value="zh">Chinese</option>
@@ -53,7 +53,7 @@
     </div>
 
 
-    <p> Frequency: </p>
+    <p class="makeSmaller"> Frequency: </p>
     <div class="slidecontainer" style="margin-top: -10px">
       <input type="range" min="20" max="100" value="60" class="slider" id="difficulty">
     </div>
@@ -91,7 +91,7 @@
           </div>
         </div>
       </div>
-      <button id="changeAccount" class="btn btn-block">Change Account</button>
+      <button id="changeAccount" class="btn btn-danger">Change Account</button>
     </div>
   </center>
 
