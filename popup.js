@@ -224,8 +224,6 @@ loadSets();
 // retrieves access token based on code from user authorization
 function getAccessToken(code, redirect_url) {
   var secondURL = "https://api.quizlet.com/oauth/token?grant_type=authorization_code&code=" + code + "&redirect_uri=redirect_url";
-  var secret = "67g6hDJYBhthpFTGpBNf4m";
-  var clientID = "Vyrcd9rkrQ";
 
   $.ajax({
     xhrFields: {
