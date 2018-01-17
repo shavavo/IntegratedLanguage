@@ -1,10 +1,10 @@
 {
-    
+
   "manifest_version": 2,
 
   "name": "Integrated Language",
   "description": "Integrated Language allows you to seamlessly integrate your language learning by translating words on the website you are viewing.",
-  "version": "1.0.0",
+  "version": "1.0.1",
 
   "content_scripts": [ {
     "matches": ["*://*/*","http://*/*", "https://*/*"],
