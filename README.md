@@ -1,8 +1,10 @@
-# Integrated-Language
+# IntegratedLanguage
 
-Integrated Language allows you to seamlessly integrate your language learning by translating words on the website you are viewing. By selecting the Language and difficulty, this extension will replace nouns, common phrases, and certain verbs with the language and frequency you specify. 
+IntegratedLanguage allows you to seamlessly integrate your language learning into your everyday internet usage. You simply select the target language and the difficulty, and this extension will reinvent boring vocabulary practice by translating small bits of the web pages you visit every day. Hover over these translated bits to view the original English.
 
-Integrated Language is easy to use. Simply select the language you want to learn, the difficulty (frequency of translations), hit start, and watch your page transform. To view the original English, hover over the item.
+You can also connect your Quizlet account with the extension to save the foreign words you encounter. After connecting to your Quizlet account, just choose the set you want to save words to and click on a translated word in a web page to add it to your set. Included is a quick flashcard view for easy review of the words you've saved.
+
+Hopefully with IntegratedLanguage, learning a new language's vocabulary will no longer be a chore.
 
 View the extension in action here: https://www.youtube.com/watch?v=A4fJ7nEU6Ms
 
@@ -18,11 +20,11 @@ To use Integrated Language, install the Chrome Extension from the link above.
 
 
 
-To modify the existing code, make your changes and compress all of the contents of the extension into a zip file. Drag the zip file into chrome://extensions in Google Chrome. Note that you will have to provide your own Google Translate API key in "inject.js".
+To modify the existing code, make your changes and compress all of the contents of the extension into a zip file. Drag the zip file into chrome://extensions in Google Chrome. Note that you will have to provide your own Google Translate API key in "inject.js". To use the Quizlet API, you will have to create your own Quizlet developer account and set the redirect uri based on your own extension id.
 
 ## Supported Languages
 
-The supported languages are: 
+The supported languages are:
   * Armenian
   * Chinese
   * Czech
@@ -47,10 +49,3 @@ The supported languages are:
   * Swedish
   * Turkish
   * Urdu
-  
-## Upcoming Features
-
-Future updates are aimed at providing dictionary definitions/pronounciation, and a flashcard maker.
-
-
-
