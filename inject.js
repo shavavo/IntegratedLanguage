@@ -9,8 +9,8 @@ chrome.storage.sync.get({auto: false, language:'hy', difficulty:60, apiKey:"0", 
 
       window.addEventListener("message", function() {
         console.log(event.data);
-         var word = event.data.original;
-         var definition = event.data.translated;
+         var word = event.data[0];
+         var definition = event.data[1];
 
         chrome.runtime.sendMessage({id:"sendingCard", word: word, def: definition});
       });

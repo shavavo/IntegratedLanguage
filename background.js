@@ -39,6 +39,7 @@ chrome.runtime.onMessage.addListener(
                     }
                 })
                 .done(function(res) {
+                    console.log("posted");
                     chrome.runtime.sendMessage({command: "loadCards"}, function(response) {
                         //console.log("sent message to background");
                     });
